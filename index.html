@@ -93,6 +93,9 @@ a {
 <body>
 <div id="map"></div>
 <div id="searchInfo"><h3>Click on a marker to generate a list of recent sightings at that location. Then, simply click on a common name in the list to populate a search for the Audubon field guide entry for that species.</h3></div>
+
+
+
 <script>
 
     function initMap() {
@@ -105,7 +108,7 @@ a {
         });
         
 
-        var jsonData1 = (function () {
+        var jsonData10 = (function () {
             var json = null;
             $.ajax({
                "async": false,
@@ -117,14 +120,14 @@ a {
               },
               "success": function (data) {
                 json = data;
-                console.log(json);
               }
             });
             return json;
               
         })();
 
-        var jsonData2 = (function () {
+
+        var jsonData20 = (function () {
             var json = null;
             $.ajax({
                "async": false,
@@ -136,14 +139,12 @@ a {
               },
               "success": function (data) {
                 json = data;
-                console.log(json);
               }
             });
             return json;
               
         })();
 
-     
 
         var contentString1 = '<div class="contentone">'+
             '<h3 class="topofwindow"><em>Recent bird sightings at:</em></h3>'+
@@ -180,13 +181,13 @@ a {
         });
         
         marker1.addListener('click', function() {
-          infowindow1.open(map, marker1);
-          $.each(jsonData1, function (key, value) {
+          
+          setTimeout(function() {
+            $.each(jsonData10, function (key, value) {
           $('#jsonData1').append("<li>" + value.comName + "</li>");
           });
-          
 
-          $("#jsonData1").on("click", "li", function(e) {
+            $("#jsonData1").on("click", "li", function(e) {
                 e.preventDefault();
                 $('#gsc-i-id1').val('');
                 $('li').removeClass('selected');
@@ -197,6 +198,10 @@ a {
                 $('input.gsc-search-button-v2').click();
                 $('form.gsc-search-box'); // from http://jsbin.com/UgUxEKo/3/edit?html,output
           });
+          }, 100); 
+
+          infowindow1.open(map, marker1);    
+ 
         });
         
         infowindow1.addListener('closeclick', function () {
@@ -212,13 +217,13 @@ a {
         });
         
         marker2.addListener('click', function() {
-          infowindow2.open(map, marker2);
 
-          $.each(jsonData2, function (key, value) {
+          setTimeout(function() {
+            $.each(jsonData20, function (key, value) {
           $('#jsonData2').append("<li>" + value.comName + "</li>");
           });
 
-          $("#jsonData2").on("click", "li", function(e) {
+            $("#jsonData2").on("click", "li", function(e) {
                 e.preventDefault();
                 $('#gsc-i-id1').val('');
                 $('li').removeClass('selected');
@@ -229,6 +234,9 @@ a {
                 $('input.gsc-search-button-v2').click();
                 $('form.gsc-search-box'); // from http://jsbin.com/UgUxEKo/3/edit?html,output
           });
+          }, 100); 
+
+          infowindow2.open(map, marker2);
         
         });
         
